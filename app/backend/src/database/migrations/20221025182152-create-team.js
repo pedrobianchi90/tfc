@@ -7,6 +7,7 @@ module.exports = {
         type: Sequelize.INTEGER,  
         primaryKey: true,
         autoIncrement: true,
+        allowNull: false,
       },
       team_name: {
         type: Sequelize.STRING, 
