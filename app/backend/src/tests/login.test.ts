@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import User from '../database/models/UserModel';
-import { userMock, validUser } from './mocks/login.mocks';
+import { userMock, validUser, invalidEmail } from './mocks/login.mocks';
 
 import { Response } from 'superagent';
 
@@ -14,11 +14,6 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Testa a rota /login', () => {
-
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
-
   let chaiHttpResponse: Response;
 
   afterEach(() => {
@@ -37,23 +32,15 @@ describe('Testa a rota /login', () => {
     expect(chaiHttpResponse.body).to.haveOwnProperty('token');
   });
 
-//   before(async () => {
-//     sinon
-//       .stub(Example, "findOne")
-//       .resolves({
-//         ...<Seu mock>
-//       } as Example);
-//   });
+  it('Retorna mensagem de erro se o e-mail não for válido', async () => {
+    sinon.stub(User, "findOne").resolves(null);
 
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
+    chaiHttpResponse = await chai
+       .request(app)
+       .post('/login')
+       .send(invalidEmail);
 
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
-
-  //   expect(...)
-  // });
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
+  });
 });
