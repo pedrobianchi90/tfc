@@ -11,7 +11,20 @@ export const validUser = {
     password: 'secret_user',
 }
 
+export const emptyEmail = { 
+    password: 'secret_user'
+}
+
+export const emptyPassword = {
+    email: 'user@user.com'
+}
+
 export const invalidEmail = {
     email: 'invalid@user.com',
     password: 'secret_user',
+}
+
+export const invalidPassword = {
+    email: 'user@user.com',
+    password: 'invalid_password'
 }
