@@ -25,4 +25,11 @@ describe('Testa a rota /teams', () => {
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.deep.equal(teamsMock);
   });
+
+  it('Retorna o time com id selecionado', async () => {
+    sinon.stub(Team, "findOne").resolves(teamsMock[10] as Team);
+    const response = await chai.request(app).get('/teams/11');
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.deep.equal(teamsMock[10]);
+  });
 });
