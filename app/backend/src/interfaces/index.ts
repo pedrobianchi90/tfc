@@ -10,3 +10,8 @@ export interface ILogin {
   email: string;
   password: string;
 }
+
+export interface ITeam {
+  id: number;
+  teamName: string;
+}
