@@ -13,4 +13,4 @@ class TeamService {
   };
 }
 
-export default new TeamService();
+export default TeamService;
