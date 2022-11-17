@@ -30,26 +30,35 @@ class MatchController {
     }
   };
 
-  //   createMatch = async (req: Request, res: Response) => {
-  //     const { body } = req.body;
-  //     const match = await this.matchService.createMatch(body);
-  //     return res.status(statusCodes.created).json(match);
-  //   };
+  // createMatch = async (req: Request, res: Response) => {
+  //   const { body } = req.body;
+  //   const match = await this.matchService.createMatch(body);
+  //   return res.status(statusCodes.created).json(match);
+  // };
+
+  // createMatch = async (req: Request, res: Response) => {
+  //   try {
+  //     const { body } = req;
+
+  //     const matchCreate = await this.matchService.createMatch(body);
+
+  //     return res.status(201).json(matchCreate);
+  //   } catch {
+  //     return res.status(500).json({ message: 'Erro interno' });
+  //   }
+  // };
+
+  createMatch = async (req: Request, res: Response) => {
+    const insert = await this.matchService.createMatch(req.body);
+    if (insert) {
+      return res.status(201).json(insert);
+    } return res.status(404).json({ message: 'There is no team with such id!' });
+  };
 
   finishMatch = async (req: Request, res: Response) => {
     const { id } = req.params;
     await this.matchService.finishMatch(Number(id));
     return res.status(statusCodes.ok).json({ message: 'Finished' });
-  };
-
-  updateMatch = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { homeTeamGoals, awayTeamGoals } = req.body;
-    const goals = { homeTeamGoals, awayTeamGoals };
-
-    const updatedMatch = await this.matchService.updateMatch(Number(id), goals);
-
-    return res.status(200).json(updatedMatch);
   };
 }
 
