@@ -12,47 +12,26 @@ class MatchController {
   }
 
   findAll = async (req: Request, res: Response) => {
-    try {
-      const { inProgress } = req.query;
-      let matches;
+    const { inProgress } = req.query;
+    const matches = await this.matchService.findAll();
 
-      if (inProgress) {
-        const matchInProgess = inProgress === 'true';
-
-        matches = await this.matchService.inProgress(matchInProgess);
-      } else {
-        matches = await this.matchService.findAll();
-      }
-
-      return res.status(statusCodes.ok).json(matches);
-    } catch {
-      return res.status(500).json({ message: 'Internal Server Error' });
+    if (inProgress === 'true') {
+      const result = matches.filter((match) => match.inProgress === true);
+      return res.status(statusCodes.ok).json(result);
     }
+
+    if (inProgress === 'false') {
+      const result = matches.filter((match) => match.inProgress === false);
+      return res.status(statusCodes.ok).json(result);
+    }
+    return res.status(statusCodes.ok).json(matches);
   };
-
-  // createMatch = async (req: Request, res: Response) => {
-  //   const { body } = req.body;
-  //   const match = await this.matchService.createMatch(body);
-  //   return res.status(statusCodes.created).json(match);
-  // };
-
-  // createMatch = async (req: Request, res: Response) => {
-  //   try {
-  //     const { body } = req;
-
-  //     const matchCreate = await this.matchService.createMatch(body);
-
-  //     return res.status(201).json(matchCreate);
-  //   } catch {
-  //     return res.status(500).json({ message: 'Erro interno' });
-  //   }
-  // };
 
   createMatch = async (req: Request, res: Response) => {
     const insert = await this.matchService.createMatch(req.body);
     if (insert) {
-      return res.status(201).json(insert);
-    } return res.status(404).json({ message: 'There is no team with such id!' });
+      return res.status(statusCodes.created).json(insert);
+    } return res.status(statusCodes.notFound).json({ message: 'There is no team with such id!' });
   };
 
   finishMatch = async (req: Request, res: Response) => {

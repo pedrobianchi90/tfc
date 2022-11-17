@@ -1,7 +1,6 @@
 import Match from '../database/models/MatchModel';
 import Team from '../database/models/TeamModel';
 import { IMatch } from '../interfaces';
-// import customError from '../utils/errorHandler';
 
 class MatchService {
   findAll = async (): Promise<IMatch[]> => {
@@ -30,39 +29,6 @@ class MatchService {
     const team = await Team.findOne({ where: { id } });
     return team;
   };
-
-  // teamExists = async (id: number) => {
-  //   const existingTeam = await Team.findOne({ where: { id } });
-
-  //   if (!existingTeam) {
-  //     customError('NotFound', 'There is no team with such id!');
-  //   }
-
-  //   return existingTeam;
-  // };
-
-  // compareTeam = (teamOne: number, teamTwo: number) => {
-  //   if (teamOne === teamTwo) {
-  //     customError(
-  //       'UnprocessableEntity',
-  //       'It is not possible to create a match with two equal teams',
-  //     );
-  //   }
-  // };
-
-  // createMatch = async (body: INewMatch) => {
-  //   const { homeTeam, awayTeam } = body;
-
-  //   await this.teamExists(homeTeam);
-  //   await this.teamExists(awayTeam);
-
-  //   this.compareTeam(homeTeam, awayTeam);
-
-  //   const inProgress = true;
-  //   const createdMatch = await Match.create({ ...body, inProgress });
-
-  //   return createdMatch;
-  // };
 
   createMatch = async (body: any) => {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = body;
