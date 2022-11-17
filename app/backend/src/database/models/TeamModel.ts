@@ -23,6 +23,7 @@ Team.init({
   modelName: 'Teams',
   underscored: true,
   timestamps: false,
+  tableName: 'teams',
 });
 
 export default Team;

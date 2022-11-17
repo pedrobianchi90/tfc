@@ -1,6 +1,6 @@
 import Match from '../database/models/MatchModel';
 import Team from '../database/models/TeamModel';
-import { IMatch } from '../interfaces';
+import { IMatch, IGoals } from '../interfaces';
 
 class MatchService {
   findAll = async (): Promise<IMatch[]> => {
@@ -28,6 +28,13 @@ class MatchService {
   finishMatch = async (id: number) => {
     await Match.update({ inProgress: false }, { where: { id } });
     return { message: 'Finished' };
+  };
+
+  updateMatch = async (id: number, goals: IGoals) => {
+    const { homeTeamGoals, awayTeamGoals } = goals;
+    await Match.update({ awayTeamGoals, homeTeamGoals }, { where: { id } });
+    const uptd = await Match.findOne({ where: { id } });
+    return uptd;
   };
 }
 
