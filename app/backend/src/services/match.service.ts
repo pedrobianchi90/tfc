@@ -30,21 +30,10 @@ class MatchService {
     return team;
   };
 
-  createMatch = async (body: any) => {
-    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = body;
-    const home = await this.findById(homeTeam);
-    const away = await this.findById(awayTeam);
-    if (!home || !away) {
-      return null;
-    }
-    const query: any = await Match.create({
-      homeTeam,
-      awayTeam,
-      homeTeamGoals,
-      awayTeamGoals,
-      inProgress: true,
-    });
-    return query.dataValues;
+  public createMatch = (payload: IMatch, inProgress: boolean): Promise<IMatch> => {
+    const matchCreated = Match.create({ ...payload, inProgress });
+
+    return matchCreated;
   };
 
   finishMatch = async (id: number) => {
