@@ -1,23 +1,25 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import statusCodes from '../utils/statusCodes';
 
-const emailValidate = (email: string): boolean => {
-  const regexEmail = /^[\w.+]+@\w+.\w{2,}(?:.\w{2})?$/gim;
-  const result = regexEmail.test(email);
-  if (!result) return false;
-  return true;
-};
+const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-export default (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
+export default class LoginMiddleware {
+  emailValidate = (req: Request, res: Response, next: NextFunction) => {
+    const { email } = req.body;
+    if (!email || email === '') {
+      return res.status(statusCodes.badRequest).json({ message: 'All fields must be filled' });
+    }
+    if (!regex.test(email)) {
+      return res.status(statusCodes.badRequest).json({ message: 'Incorrect email or password' });
+    }
+    next();
+  };
 
-  if (!password || !email) return res.status(400).json({ message: 'All fields must be filled' });
-  if (!emailValidate(email)) {
-    return res.status(401).json({ message: 'Incorrect email or password' });
-  }
-  if (password.length < 6) {
-    return res.status(422)
-      .json({ messsage: '"password" length must be at least 6 characters long' });
-  }
-
-  next();
-};
+  passwordValidate = (req: Request, res: Response, next: NextFunction) => {
+    const { password } = req.body;
+    if (!password || password === '') {
+      return res.status(statusCodes.badRequest).json({ message: 'All fields must be filled' });
+    }
+    next();
+  };
+}
