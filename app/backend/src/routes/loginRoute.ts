@@ -12,5 +12,6 @@ loginRouter.post(
   loginMiddleware.passwordValidate,
   userController.login,
 );
+loginRouter.get('/validate', userController.validate);
 
 export default loginRouter;
