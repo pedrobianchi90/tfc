@@ -41,6 +41,18 @@ class MatchService {
     await Match.update({ inProgress: false }, { where: { id: idQuery } });
     return 'Finished';
   };
+
+  updateMatch = async (id: string, params: any) => {
+    const { homeTeamGoals, awayTeamGoals } = params;
+    const idNumber = Number(id);
+    await Match.update({
+      homeTeamGoals,
+      awayTeamGoals,
+    }, {
+      where: { id: idNumber },
+    });
+    return 'Match Updated!';
+  };
 }
 
 export default MatchService;

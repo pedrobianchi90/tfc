@@ -10,6 +10,6 @@ const matchRouter = Router();
 matchRouter.get('/', matchController.findAll);
 matchRouter.post('/', tokenValidation, teamExist, sameTeam, matchController.createMatch);
 matchRouter.patch('/:id/finish', matchController.finishMatch);
-// matchRouter.patch('/:id', matchController.updateMatch);
+matchRouter.patch('/:id', tokenValidation, matchController.updateMatch);
 
 export default matchRouter;

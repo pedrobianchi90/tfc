@@ -37,6 +37,11 @@ class MatchController {
     await this.matchService.finishMatch(Number(id));
     return res.status(statusCodes.ok).json({ message: 'Finished' });
   };
+
+  updateMatch = async (req: Request, res: Response) => {
+    const update = await this.matchService.updateMatch(req.params.id, req.body);
+    return res.status(statusCodes.ok).json({ message: update });
+  };
 }
 
 export default MatchController;
