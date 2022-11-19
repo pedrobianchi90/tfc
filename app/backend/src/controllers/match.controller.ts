@@ -29,9 +29,7 @@ class MatchController {
 
   createMatch = async (req: Request, res: Response) => {
     const insert = await this.matchService.createMatch(req.body, true);
-    if (insert) {
-      return res.status(statusCodes.created).json(insert);
-    } return res.status(statusCodes.notFound).json({ message: 'There is no team with such id!' });
+    return res.status(statusCodes.created).json(insert);
   };
 
   finishMatch = async (req: Request, res: Response) => {
