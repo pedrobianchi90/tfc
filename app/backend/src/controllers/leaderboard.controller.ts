@@ -13,6 +13,11 @@ class LeaderboardController {
     const ranking = await this.leaderboardService.homeRanking();
     return res.status(statusCodes.ok).json(ranking);
   };
+
+  public awayRanking = async (req: Request, res: Response) => {
+    const result = await this.leaderboardService.awayRanking();
+    return res.status(statusCodes.ok).json(result);
+  };
 }
 
 export default LeaderboardController;
