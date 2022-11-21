@@ -33,3 +33,4 @@ describe('Testa a rota /teams', () => {
     expect(response.body).to.be.deep.equal(teamsMock[10]);
   });
 });
+

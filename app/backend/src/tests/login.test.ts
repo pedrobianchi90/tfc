@@ -36,7 +36,7 @@ describe('Testa a rota /login', () => {
 
     const response = await chai.request(app).post('/login').send(emptyEmail)
     expect(response.status).to.be.equal(400);
-    expect(response.body.mensagem).to.be.equal('All fields must be filled');
+    expect(response.body.message).to.be.equal('All fields must be filled');
   });
 
   it('Retorna mensagem de erro se o campo de senha estiver vazio', async () => {
@@ -44,7 +44,7 @@ describe('Testa a rota /login', () => {
 
     const response = await chai.request(app).post('/login').send(emptyPassword)
     expect(response.status).to.be.equal(400);
-    expect(response.body.mensagem).to.be.equal('All fields must be filled');
+    expect(response.body.message).to.be.equal('All fields must be filled');
   });
 
   it('Retorna mensagem de erro se o e-mail não for válido', async () => {
