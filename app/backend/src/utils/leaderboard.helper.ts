@@ -31,34 +31,34 @@ export default class Leaderboards {
   };
 
   public efficiencyOfTeam = (teams: Team) => {
-    const P = this.totalPoints(teams);
-    const J = this.totalMatches(teams);
-    const percentage = ((P / (J * 3)) * 100);
+    const points = this.totalPoints(teams);
+    const games = this.totalMatches(teams);
+    const percentage = ((points / (games * 3)) * 100);
     return percentage.toFixed(2);
   };
 
   public goalsScoreInFavor = (teams: Team) => {
-    let GP = 0;
+    let goalsInFavor = 0;
     this.leaderboard.forEach((match) => {
-      if (match.homeTeam === teams.id) GP += match.homeTeamGoals;
-      if (match.awayTeam === teams.id) GP += match.awayTeamGoals;
+      if (match.homeTeam === teams.id) goalsInFavor += match.homeTeamGoals;
+      if (match.awayTeam === teams.id) goalsInFavor += match.awayTeamGoals;
     });
-    return GP;
+    return goalsInFavor;
   };
 
   public goalsConceded = (teams: Team) => {
-    let GC = 0;
+    let goalsConceded = 0;
     this.leaderboard.forEach((match) => {
-      if (match.awayTeam === teams.id) GC += match.homeTeamGoals;
-      if (match.homeTeam === teams.id) GC += match.awayTeamGoals;
+      if (match.awayTeam === teams.id) goalsConceded += match.homeTeamGoals;
+      if (match.homeTeam === teams.id) goalsConceded += match.awayTeamGoals;
     });
-    return GC;
+    return goalsConceded;
   };
 
   public goalsBalance = (teams: Team) => {
-    const GP = this.goalsScoreInFavor(teams);
-    const GC = this.goalsConceded(teams);
-    const goalBalance = GP - GC;
+    const goalsInFavor = this.goalsScoreInFavor(teams);
+    const goalsConceded = this.goalsConceded(teams);
+    const goalBalance = goalsInFavor - goalsConceded;
     return goalBalance;
   };
 

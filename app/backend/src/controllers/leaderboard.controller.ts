@@ -15,8 +15,13 @@ class LeaderboardController {
   };
 
   public awayRanking = async (req: Request, res: Response) => {
-    const result = await this.leaderboardService.awayRanking();
-    return res.status(statusCodes.ok).json(result);
+    const ranking = await this.leaderboardService.awayRanking();
+    return res.status(statusCodes.ok).json(ranking);
+  };
+
+  public generalRanking = async (req: Request, res: Response) => {
+    const ranking = await this.leaderboardService.generalRanking();
+    return res.status(statusCodes.ok).json(ranking);
   };
 }
 

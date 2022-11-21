@@ -36,6 +36,21 @@ class LeaderboardService {
     || c.goalsFavor - a.goalsFavor
     || c.goalsOwn - a.goalsOwn);
   };
+
+  public generalRanking = async () => {
+    const { teams, finishedMatches } = await this.matchesAndTeams();
+
+    const result = teams.map((team) => {
+      const matches = finishedMatches
+        .filter((match) => match.homeTeam === team.id || match.awayTeam === team.id);
+      return new Leaderboard(matches).ResultTeams(team);
+    });
+    return result.sort((c, b) => b.totalPoints - c.totalPoints
+    || b.totalVictories - c.totalVictories
+    || b.goalsBalance - c.goalsBalance
+    || b.goalsFavor - c.goalsFavor
+    || b.goalsOwn - c.goalsOwn);
+  };
 }
 
 export default LeaderboardService;
