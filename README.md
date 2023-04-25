@@ -18,3 +18,15 @@ This project was very important for my growth as a software developer, as I was 
   <img align="center" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg">
  </div>
 <br>
+
+## Starting The Project
+1. Clone the repository:
+ * ```git clone git@github.com:pedrobianchi90/tfc.git```
+2. Navigate to the cloned repository folder:
+  * ```cd tfc```
+3. Docker:
+  * To start the docker-compose, you must use the command `npm run compose:up` inside the project's root folder.
+4. Front-end login information: 
+  * `login: admin@admin.com`<br>
+  * `senha: secret_admin`
+ 
